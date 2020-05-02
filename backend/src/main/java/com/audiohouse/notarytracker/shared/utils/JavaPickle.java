@@ -13,22 +13,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A class to write objects to local files.
+ * This is just for testing purposes. A production
+ * system would write to a database instead.
+ */
 public class JavaPickle {
 
     // Lock object to serialize write operations
     private static final Object lock = new Object();
 
     public <T> T save(T objectToSave, String objectId, String fileName) {
-        HashMap<String, T> currentSet;
-        try {
-            // first try to retrieve the current set of objects
-            currentSet = this.getHashMap(fileName);
-        } catch (FileNotFoundException e) {
-            // If file does not exist, we will create a new one
-            currentSet = new HashMap<>();
-            currentSet.put(objectId, objectToSave);
+        synchronized (lock) {
+            HashMap<String, T> currentSet;
+            try {
+                // first try to retrieve the current set of objects
+                currentSet = this.getHashMap(fileName);
+            } catch (FileNotFoundException e) {
+                // If file does not exist, we will create a new one
+                currentSet = new HashMap<>();
+                currentSet.put(objectId, objectToSave);
+            }
+            return this.writeFile(objectToSave, objectId, fileName, currentSet);
         }
-        return this.writeFile(objectToSave, objectId, fileName, currentSet);
     }
 
     public <T> List<T> getAll(String fileName) {
@@ -56,6 +63,24 @@ public class JavaPickle {
         }
     }
 
+    public <T> void deleteById(String id, String filename) {
+        synchronized (lock) {
+            try {
+                HashMap<String, T> objectHashMap = this.getHashMap(filename);
+                if (objectHashMap.get(id) != null) {
+                    objectHashMap.remove(id);
+                    this.writeFile(filename, objectHashMap);
+                } else {
+                    throw new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Did not find object with id: " + id);
+                }
+            } catch (FileNotFoundException e) {
+                throw new ResponseStatusException(
+                        HttpStatus.UNPROCESSABLE_ENTITY, "There are no entries in database");
+            }
+        }
+    }
+
     private <T> T writeFile(T objectToSave, String objectId, String fileName, HashMap<String, T> currentSet) {
         synchronized (lock) {
             FileOutputStream fos;
@@ -71,6 +96,22 @@ public class JavaPickle {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
             }
             return objectToSave;
+        }
+    }
+
+    private <T> void writeFile(String filename, HashMap<String, T> currentSet) {
+        synchronized (lock) {
+            FileOutputStream fos;
+            ObjectOutputStream oos;
+            try {
+                fos = new FileOutputStream(filename);
+                oos = new ObjectOutputStream(fos);
+                oos.writeObject(currentSet);
+                oos.close();
+                oos.close();
+            } catch (IOException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            }
         }
     }
 
