@@ -22,17 +22,6 @@ public class CoreWorker {
         this.jPickle = jPickle;
     }
 
-    public UserEntity generateUserEntity(PostUser postUser) {
-        UserEntity userToGenerate = new UserEntity();
-        userToGenerate.setUserId(UUID.randomUUID().toString());
-        userToGenerate.setFirstName(postUser.getFirstName());
-        userToGenerate.setLastName(postUser.getLastName());
-        userToGenerate.setEmail(postUser.getEmail());
-        userToGenerate.setPassword(CodecHash.sha256(postUser.getPassword()));
-        userToGenerate.setPhoneNumber(postUser.getPhoneNumber());
-        return userToGenerate;
-    }
-
     public UserEntity persistUser(UserEntity userEntity) {
         logger.info("Persisting user: {}", userEntity);
         return jPickle.save(userEntity, userEntity.getUserId(), userFileLocation);
@@ -41,6 +30,11 @@ public class CoreWorker {
     public List<UserEntity> getAllUsers() {
         logger.info("Getting all users");
         return jPickle.getAll(userFileLocation);
+    }
+
+    public UserEntity getUserById(String id) {
+        logger.info("Getting user with id: {}", id);
+        return jPickle.getById(id, userFileLocation);
     }
 
 }

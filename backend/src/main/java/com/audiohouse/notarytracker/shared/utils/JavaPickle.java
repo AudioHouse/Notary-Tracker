@@ -37,10 +37,23 @@ public class JavaPickle {
         try {
             currentSet = this.getHashMap(fileName);
         } catch (FileNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There are no entries in database");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "There are no entries in database");
         }
         currentSet.forEach((key, value) -> listToReturn.add(value));
         return listToReturn;
+    }
+
+    public <T> T getById(String id, String filename) {
+        try {
+            T objectToReturn =  (T) this.getHashMap(filename).get(id);
+            if (objectToReturn != null) {
+                return objectToReturn;
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Did not find object with id: " + id);
+            }
+        } catch (FileNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "There are no entries in database");
+        }
     }
 
     private <T> T writeFile(T objectToSave, String objectId, String fileName, HashMap<String, T> currentSet) {
