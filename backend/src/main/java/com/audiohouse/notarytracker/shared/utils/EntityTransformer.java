@@ -23,6 +23,7 @@ public class EntityTransformer {
 
     public static GetUser userEntityToGetUser(UserEntity userEntity) {
         GetUser userToReturn = new GetUser();
+        userToReturn.setUserId(userEntity.getUserId());
         userToReturn.setFirstName(userEntity.getFirstName());
         userToReturn.setLastName(userEntity.getLastName());
         userToReturn.setEmail(userEntity.getEmail());
