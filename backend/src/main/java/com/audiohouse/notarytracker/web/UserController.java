@@ -1,6 +1,6 @@
 package com.audiohouse.notarytracker.web;
 
-import com.audiohouse.notarytracker.core.CoreWorker;
+import com.audiohouse.notarytracker.core.UserCore;
 import com.audiohouse.notarytracker.shared.models.web.GetUser;
 import com.audiohouse.notarytracker.shared.models.web.PostUser;
 import com.audiohouse.notarytracker.shared.utils.EntityTransformer;
@@ -26,27 +26,27 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    CoreWorker coreWorker;
+    UserCore userCore;
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
     public ResponseEntity<GetUser> createUser(
             @RequestBody PostUser postUser) {
         return new ResponseEntity<>(EntityTransformer.userEntityToGetUser(
-                coreWorker.persistUser(EntityTransformer.postUserToUserEntity(postUser))), HttpStatus.CREATED);
+                userCore.createUser(EntityTransformer.postUserToUserEntity(postUser))), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<GetUser>> getAllUsers() {
         return new ResponseEntity<>(EntityTransformer.userEntityListToGetUserList(
-                coreWorker.getAllUsers()), HttpStatus.OK);
+                userCore.getAllUsers()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{userId}")
     public ResponseEntity<GetUser> getUser(
             @PathVariable("userId") String userId) {
         return new ResponseEntity<>(EntityTransformer.userEntityToGetUser(
-                coreWorker.getUserById(userId)), HttpStatus.OK);
+                userCore.getUserById(userId)), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{userId}")
@@ -54,14 +54,14 @@ public class UserController {
             @PathVariable("userId") String userId,
             @RequestBody PostUser userToUpdate) {
         return new ResponseEntity<>(EntityTransformer.userEntityToGetUser(
-                coreWorker.updateUserById(userId, userToUpdate)), HttpStatus.OK);
+                userCore.updateUserById(userId, userToUpdate)), HttpStatus.OK);
     }
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/{userId}")
     public ResponseEntity<Void> deleteUser(
             @PathVariable("userId") String userId) {
-        coreWorker.deleteUserById(userId);
+        userCore.deleteUserById(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

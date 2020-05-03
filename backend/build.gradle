@@ -23,6 +23,12 @@ dependencies {
 	// Hashing
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
 
+	// JWT Token
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	// JAXB originally included in Java 8. Apparently missing in Java 11.
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
 	// Test
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
