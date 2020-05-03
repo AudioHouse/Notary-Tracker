@@ -83,7 +83,12 @@ public class UserCore {
 
     public void throwIfEmailExists(String email) {
         logger.info("Checking if email {} is taken", email);
-        List<UserEntity> usersList = jPickle.getAll(userFileLocation);
+        List<UserEntity> usersList;
+        try {
+            usersList = jPickle.getAll(userFileLocation);
+        } catch (ResponseStatusException ex) {
+            return;
+        }
         for (UserEntity user : usersList) {
             if (email.equals(user.getEmail())) {
                 throw new ResponseStatusException(

@@ -24,4 +24,9 @@ public class CoreConfig {
         return new TokenCore();
     }
 
+    @Bean
+    public StartupConfig startupConfig() {
+        return new StartupConfig(coreWorker());
+    }
+
 }

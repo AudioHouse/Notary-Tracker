@@ -70,5 +70,12 @@ public class TokenCore {
         return claims.getSubject();
     }
 
-
+    public void throwIfUnauthorized(String jwtToken) {
+        try {
+            this.getJWTClaims(jwtToken);
+        } catch (ResponseStatusException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Not authorized: " + ex.getReason());
+        }
+    }
 }
