@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './main/homepage/homepage.component';
 import { LoginPageComponent } from './main/login-page/login-page.component';
 import { MainNavbarComponent } from './main/components/main-navbar/main-navbar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MainNavbarComponent } from './main/components/main-navbar/main-navbar.c
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
