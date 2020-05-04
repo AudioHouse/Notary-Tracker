@@ -11,14 +11,16 @@ $primary-dark: #00b2cc;
 $secondary: #607d8b;
 $secondary-light: #8eacbb;
 $secondary-dark: #34515e;
+$body-background-blue: #f2fbff;
 
 body {
     margin: 0;
     font-family: 'Roboto', 'sans-serif';
+    background-color: $body-background-blue;
 }
 
 .body-div {
-    margin-top: 4rem;
+    padding-top: 5.5rem;
     width: 80%;
     margin: 0 auto;
 }
