@@ -1,0 +1,9 @@
+@import '../../../../styles.scss';
+
+header {
+    width: 100%;
+    height: 4rem;
+    background-color: $primary;
+    position: fixed;
+    top: 0;
+}

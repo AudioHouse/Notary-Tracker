@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+$primary: #00e5ff;
+$primary-light: #6effff;
+$primary-dark: #00b2cc;
+$secondary: #607d8b;
+$secondary-light: #8eacbb;
+$secondary-dark: #34515e;
+
+body {
+    margin: 0;
+    font-family: 'Roboto', 'sans-serif';
+}
+
+.body-div {
+    margin-top: 4rem;
+}
