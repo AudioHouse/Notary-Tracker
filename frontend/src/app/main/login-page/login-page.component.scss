@@ -19,8 +19,7 @@
     .vertical-align {
         width: 25em;
         min-width: 20em;
-        height: 30em;
-        min-height: 25em;
+        height: 28em;
         background-color: #e7e7e7;
         border-radius: 5px;
         box-shadow: 0px 2px 5px;
@@ -40,6 +39,36 @@
                 height: 1px;
                 background: #333;
                 background-image: linear-gradient(to right, #ccc, #333, #ccc);
+            }
+        }
+
+        .login-form-container {
+            padding: 2em;
+            
+            .form-group {
+                margin-bottom: 2em;
+
+                input {
+                    color: $secondary-dark;
+                    padding: 1.5em 1em;
+                    border-radius: 5px;
+                    border-color: $secondary-dark;
+                }
+            }
+
+            .submit-group {
+                text-align: center;
+
+                button {
+                    width: 100%;
+                    margin-top: 2em;
+                    background-color: darken($color: $primary-dark, $amount: 5%);
+                    border-color: $secondary-dark;
+
+                    &:hover {
+                        background-color: darken($color: $primary-dark, $amount: 15%);
+                    }
+                }
             }
         }
     }
