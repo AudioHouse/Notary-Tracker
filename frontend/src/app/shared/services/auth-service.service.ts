@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   constructor(
     private httpClient: HttpClient
@@ -14,8 +14,9 @@ export class AuthServiceService {
   postToken(email: string, password: string): Observable<any> {
     const requestBody = {
       email,
-      password 
+      password
     }
+    console.log("The request body is: " + JSON.stringify(requestBody));
     return this.httpClient.post("http://localhost:8080/token", requestBody);
   }
 

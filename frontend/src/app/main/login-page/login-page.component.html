@@ -8,10 +8,10 @@
             <div class="login-form-container">
                 <form>
                     <div class="form-group">
-                        <input id="email" type="text" class="form-control" placeholder="Email *" name="email" [disabled]="loading" required>
+                        <input id="email" type="text" class="form-control" placeholder="Email *" [(ngModel)]="email" name="email" [disabled]="loading" required>
                     </div>
                     <div class="form-group">
-                        <input id="password" type="password" class="form-control" placeholder="Password *" name="password" [disabled]="loading" required >
+                        <input id="password" type="password" class="form-control" placeholder="Password *" [(ngModel)]="password" name="password" [disabled]="loading" required >
                     </div>
                     <div class="submit-group">
                         <button class="btn btn-primary" type="submit" (click)="login()" [disabled]="loading">
