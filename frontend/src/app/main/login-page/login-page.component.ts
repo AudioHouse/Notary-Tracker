@@ -16,10 +16,14 @@ export class LoginPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loading = false;
   }
 
   login(): void {
     this.router.navigate(["/home"])
   }
 
+  buttonText(): String {
+    return (this.loading ? "Loading..." : "Login");
+  }
 }

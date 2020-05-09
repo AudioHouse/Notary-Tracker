@@ -68,6 +68,9 @@
                     &:hover {
                         background-color: darken($color: $primary-dark, $amount: 15%);
                     }
+                    &:disabled {
+                        background-color: $secondary-dark;
+                    }
                 }
             }
         }
