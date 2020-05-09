@@ -2,8 +2,16 @@
     <p>Notary Planner</p>
     <nav>
         <ul>
-          <li><a href="#" routerLink="/">Home</a></li>
-          <li><a href="#" routerLink="/">Scheduler</a></li>
+          <li>
+            <button class="btn btn-primary" type="submit" (click)="goHome()">
+                <div>Home</div>
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-primary" type="submit" (click)="goSchedule()">
+                <div>Scheduler</div>
+            </button>
+          </li>
           <li>
             <div ngbDropdown class="nav-settings-btn">
                 <button class="btn btn-outline-primary" id="navSettings" ngbDropdownToggle>Settings</button>

@@ -39,11 +39,29 @@ header {
             margin: 0;
             display: flex;
 
-            li a {
+            // li a {
+            //     color: $secondary-dark;
+            //     padding: 1em;
+            //     text-decoration: none;
+            //     font-size: 1.1em;
+            // }
+
+            li .btn-primary {
+                border: none;
                 color: $secondary-dark;
-                padding: 1em;
-                text-decoration: none;
+                padding: 0 1em;
                 font-size: 1.1em;
+                margin-right: 4px;
+                background-color: $primary;
+
+                &:hover {
+                    background-color: $primary;
+                    color: lighten($color: $secondary-dark, $amount: 20%)
+                }
+                &:focus {
+                    background-color: $primary-light;
+                    outline: none;
+                } 
             }
 
             .nav-settings-btn {
@@ -53,10 +71,10 @@ header {
                     color: $secondary-dark;
                     padding: 0 1em;
                     font-size: 1.1em;
-                    margin-top: -1px;
 
                     &:hover {
                         background-color: $primary;
+                        color: lighten($color: $secondary-dark, $amount: 20%)
                     }
                     &:focus {
                         background-color: $primary-light;
