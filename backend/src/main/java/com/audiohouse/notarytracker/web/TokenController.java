@@ -49,7 +49,7 @@ public class TokenController {
             @RequestHeader(value = "Authorization") String jwtToken) {
         String userId = tokenCore.getUserIdFromToken(jwtToken);
         return new ResponseEntity<>(
-                EntityTransformer.userEntityToGetUser(userCore.getUserById(userId)), HttpStatus.ACCEPTED);
+                EntityTransformer.userEntityToGetUser(userCore.getUserById(userId)), HttpStatus.OK);
     }
 
 }

@@ -78,7 +78,7 @@ public class UserCore {
                 return true;
             }
         }
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Credentials provided");
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email and password combination incorrect.");
     }
 
     public void throwIfEmailExists(String email) {
