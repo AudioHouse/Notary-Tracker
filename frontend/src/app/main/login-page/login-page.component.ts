@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
@@ -15,7 +16,8 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,13 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(["/home"])
       // no longer loading
       this.loading = false;
+    }, (error: HttpErrorResponse) => {
+      // stop loading 
+      this.loading = false;
+      // clear the password field
+      this.password = "";
+      // print the error to user
+      this.toastr.error("Login Error", error.error.message);
     });
   }
 

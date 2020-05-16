@@ -27,7 +27,10 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      closeButton: true,
+      tapToDismiss: false
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
