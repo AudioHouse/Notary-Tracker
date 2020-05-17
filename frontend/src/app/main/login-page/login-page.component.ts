@@ -42,7 +42,7 @@ export class LoginPageComponent implements OnInit {
       // clear the password field
       this.password = "";
       // print the error to user
-      this.toastr.error("Login Error", error.error.message);
+      this.toastr.error(error.error.message, 'Login Error');
     });
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main-navbar',
@@ -8,7 +9,10 @@ import { Router } from '@angular/router';
 })
 export class MainNavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private toastr: ToastrService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -18,7 +22,13 @@ export class MainNavbarComponent implements OnInit {
   }
 
   goSchedule(): void {
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/home"]);
+  }
+
+  logout(): void {
+    localStorage.removeItem('access_token');
+    this.router.navigate(['/login']);
+    this.toastr.success('You have been successfully signed out', 'Signed Out');
   }
 
 }
