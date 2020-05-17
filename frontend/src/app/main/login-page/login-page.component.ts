@@ -26,14 +26,17 @@ export class LoginPageComponent implements OnInit {
 
   login(): void {
     this.loading = true;
-    console.log("Email is:" + this.email);
-    console.log("Pass is:" + this.password);
+    if (this.email == undefined || this.password == undefined) {
+      this.toastr.error('Email and Password fields cannot be blank', 'Login Error');
+      this.loading = false;
+      return;
+    }
     this.authService.postToken(this.email, this.password).subscribe(response => {
       // save the token locally
-      console.log("Response was: " + JSON.stringify(response));
+      console.log('Response was: ' + JSON.stringify(response));
       localStorage.setItem('access_token', response.authToken);
       // navigate to homepage
-      this.router.navigate(["/home"])
+      this.router.navigate(['/home'])
       // no longer loading
       this.loading = false;
     }, (error: HttpErrorResponse) => {
