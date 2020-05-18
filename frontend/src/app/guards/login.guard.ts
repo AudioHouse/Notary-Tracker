@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,23 @@ export class LoginGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private jwtHelper: JwtHelperService
   ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     // retrieve access token
-    const accessToken: String = localStorage.getItem('access_token');
-    // if token is exists, then redirect to home
+    const accessToken: string = localStorage.getItem('access_token');
+
     if (accessToken !== null) {
+      // if the token is expired, remove it and return true
+      if (this.jwtHelper.isTokenExpired(accessToken)) {
+        this.toastr.warning('Your user session has expired', 'Session Expired');
+        return true;
+      }
+      // else, the token is valid and we can return to homepage
       this.router.navigate(['/home']);
       this.toastr.info('You are already logged in', 'User Session');
       return false;

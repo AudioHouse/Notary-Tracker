@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +26,7 @@ export class LoginPageComponent implements OnInit {
 
   login(): void {
     this.loading = true;
+    // if the fields are blank, notify user
     if (this.email == undefined || this.password == undefined) {
       this.toastr.error('Email and Password fields cannot be blank', 'Login Error');
       this.loading = false;
