@@ -24,6 +24,7 @@ export class MainGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
     } else if (this.jwtHelper.isTokenExpired(authToken)) {
+      localStorage.removeItem('access_token');
       this.router.navigate(['/login']);
       this.toastr.warning('Your user session has expired', 'Session Expired');
       return false;

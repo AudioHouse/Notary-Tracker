@@ -24,7 +24,7 @@ export class LoginGuard implements CanActivate {
     if (accessToken !== null) {
       // if the token is expired, remove it and return true
       if (this.jwtHelper.isTokenExpired(accessToken)) {
-        this.toastr.warning('Your user session has expired', 'Session Expired');
+        localStorage.removeItem('access_token');
         return true;
       }
       // else, the token is valid and we can return to homepage
