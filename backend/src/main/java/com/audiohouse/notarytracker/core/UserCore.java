@@ -17,11 +17,9 @@ public class UserCore {
     private static final String userFileLocation = "UsersList.jPickle";
 
     private JavaPickle jPickle;
-    private TokenCore tokenCore;
 
-    public UserCore(JavaPickle jPickle, TokenCore tokenCore) {
+    public UserCore(JavaPickle jPickle) {
         this.jPickle = jPickle;
-        this.tokenCore = tokenCore;
     }
 
     public UserEntity createUser(UserEntity userEntity) {
