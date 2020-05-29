@@ -71,7 +71,7 @@ public class UserCore {
 
         UserEntity userToDelete = this.getUserById(id);
         userToDelete.setEmail("deleted");
-        this.createUser(userToDelete);
+        this.updateUserById(userToDelete);
     }
 
     public Boolean authenticateUser(String email, String password) {
@@ -99,6 +99,11 @@ public class UserCore {
                         HttpStatus.CONFLICT, "A user with email '" + email +"' already exists.");
             }
         }
+    }
+
+    private UserEntity updateUserById(UserEntity userToUpdate) {
+        logger.info("Updating user {} with info {}", userToUpdate.getUserId(), userToUpdate.toString());
+        return jPickle.save(userToUpdate, userToUpdate.getUserId(), userFileLocation);
     }
 
 }
