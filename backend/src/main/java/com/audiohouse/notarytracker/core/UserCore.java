@@ -65,7 +65,13 @@ public class UserCore {
 
     public void deleteUserById(String id) {
         logger.info("Deleting user with id: {}", id);
-        jPickle.deleteById(id, userFileLocation);
+
+        // We actually want to keep the user saved to reference old signings
+        //jPickle.deleteById(id, userFileLocation);
+
+        UserEntity userToDelete = this.getUserById(id);
+        userToDelete.setEmail("deleted");
+        this.createUser(userToDelete);
     }
 
     public Boolean authenticateUser(String email, String password) {

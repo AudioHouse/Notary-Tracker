@@ -6,6 +6,7 @@ import com.audiohouse.notarytracker.shared.models.web.GetUser;
 import com.audiohouse.notarytracker.shared.models.web.PostToken;
 import com.audiohouse.notarytracker.shared.models.web.ReturnToken;
 import com.audiohouse.notarytracker.shared.utils.EntityTransformer;
+import com.audiohouse.notarytracker.shared.utils.InputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,8 @@ public class TokenController {
     @PostMapping
     public ResponseEntity<ReturnToken> createToken(
             @RequestBody PostToken postToken) {
+        // validate input
+        InputValidator.validateEmail(postToken.getEmail());
         // verify user exists
         userCore.authenticateUser(postToken.getEmail(), postToken.getPassword());
         // create token

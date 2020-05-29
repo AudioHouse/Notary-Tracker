@@ -39,7 +39,7 @@ public class InputValidator {
         }
     }
 
-    private static void validateEmail(String emailToCheck) {
+    public static void validateEmail(String emailToCheck) {
         // Check email against regex
         if (!emailToCheck.matches(EMAIL_REGEX)) {
             throw new ResponseStatusException(
