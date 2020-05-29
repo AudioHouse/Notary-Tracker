@@ -8,9 +8,12 @@ import java.lang.reflect.Field;
 
 public class InputValidator {
 
+    private static final String EMAIL_REGEX = "(.+@.+)[.](.+)";
+
     public static void validatePostUser(PostUser postUserToValidate) {
         genericNullMemberStringChecker(postUserToValidate);
         genericEmptyMemberStringChecker(postUserToValidate);
+        validateEmail(postUserToValidate.getEmail());
     }
 
     private static void genericEmptyMemberStringChecker(Object objectToCheck) {
@@ -33,6 +36,20 @@ public class InputValidator {
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "The following field cannot be null: " + f.getName());
             }
+        }
+    }
+
+    private static void validateEmail(String emailToCheck) {
+        // Check email against regex
+        if (!emailToCheck.matches(EMAIL_REGEX)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid email format: " + emailToCheck);
+        }
+
+        // I don't expect this to be true, but added just in case
+        if (emailToCheck.equalsIgnoreCase("deleted")) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid email name: " + emailToCheck);
         }
     }
 
