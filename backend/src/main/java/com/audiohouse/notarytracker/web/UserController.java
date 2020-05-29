@@ -5,6 +5,7 @@ import com.audiohouse.notarytracker.core.UserCore;
 import com.audiohouse.notarytracker.shared.models.web.GetUser;
 import com.audiohouse.notarytracker.shared.models.web.PostUser;
 import com.audiohouse.notarytracker.shared.utils.EntityTransformer;
+import com.audiohouse.notarytracker.shared.utils.InputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,7 @@ public class UserController {
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody PostUser postUser) {
         tokenCore.throwIfUnauthorized(jwtToken);
+        InputValidator.validatePostUser(postUser);
         return new ResponseEntity<>(EntityTransformer.userEntityToGetUser(
                 userCore.createUser(EntityTransformer.postUserToUserEntity(postUser))), HttpStatus.CREATED);
     }
@@ -66,6 +68,7 @@ public class UserController {
             @PathVariable("userId") String userId,
             @RequestBody PostUser userToUpdate) {
         tokenCore.throwIfUnauthorized(jwtToken);
+        InputValidator.validatePostUser(userToUpdate);
         return new ResponseEntity<>(EntityTransformer.userEntityToGetUser(
                 userCore.updateUserById(userId, userToUpdate)), HttpStatus.OK);
     }

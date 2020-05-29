@@ -14,7 +14,4 @@ public class SigningCore {
     public SigningCore(JavaPickle jPickle) {
         this.jPickle = jPickle;
     }
-
-
-
 }
