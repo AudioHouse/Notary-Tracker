@@ -1,7 +1,9 @@
 package com.audiohouse.notarytracker.shared.utils;
 
+import com.audiohouse.notarytracker.shared.models.internal.SigningEntity;
 import com.audiohouse.notarytracker.shared.models.internal.UserEntity;
 import com.audiohouse.notarytracker.shared.models.web.GetUser;
+import com.audiohouse.notarytracker.shared.models.web.PostSigning;
 import com.audiohouse.notarytracker.shared.models.web.PostUser;
 
 import java.util.ArrayList;
@@ -35,6 +37,23 @@ public class EntityTransformer {
         List<GetUser> userListToReturn = new ArrayList<>();
         userEntities.forEach(item->userListToReturn.add(userEntityToGetUser(item)));
         return userListToReturn;
+    }
+
+    public static SigningEntity newSigningEntityFromPostSigning(PostSigning postSigning) {
+        SigningEntity signingEntityToGenerate = new SigningEntity();
+        signingEntityToGenerate.setSigningId(UUID.randomUUID().toString());
+        signingEntityToGenerate.setAdditionalNotes(postSigning.getAdditionalNotes());
+        signingEntityToGenerate.setAssignedNotaryId("None");
+        signingEntityToGenerate.setAssignedNotaryName("None");
+        signingEntityToGenerate.setClientPhoneNumber(postSigning.getClientPhoneNumber());
+        signingEntityToGenerate.setClientSurname(postSigning.getClientSurname());
+        signingEntityToGenerate.setCreatedDate(DateHelper.getISODate());
+        signingEntityToGenerate.setLastUpdatedDate(DateHelper.getISODate());
+        signingEntityToGenerate.setEscrowCompanyName(postSigning.getEscrowCompanyName());
+        signingEntityToGenerate.setEscrowOfficerName(postSigning.getEscrowOfficerName());
+        signingEntityToGenerate.setSigningTimeDate(postSigning.getSigningTimeDate());
+        signingEntityToGenerate.setZipCodeArea(postSigning.getZipCodeArea());
+        return signingEntityToGenerate;
     }
 
 }

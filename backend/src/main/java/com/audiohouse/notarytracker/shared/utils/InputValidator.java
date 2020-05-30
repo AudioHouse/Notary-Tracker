@@ -1,5 +1,6 @@
 package com.audiohouse.notarytracker.shared.utils;
 
+import com.audiohouse.notarytracker.shared.models.web.PostSigning;
 import com.audiohouse.notarytracker.shared.models.web.PostUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +15,11 @@ public class InputValidator {
         genericNullMemberStringChecker(postUserToValidate);
         genericEmptyMemberStringChecker(postUserToValidate);
         validateEmail(postUserToValidate.getEmail());
+    }
+
+    public static void validatePostSigning(PostSigning postSigningToValidate) {
+        genericNullMemberStringChecker(postSigningToValidate);
+        genericEmptyMemberStringChecker(postSigningToValidate);
     }
 
     private static void genericEmptyMemberStringChecker(Object objectToCheck) {
