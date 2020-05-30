@@ -91,7 +91,7 @@ public class JavaPickle {
                 currentSet.put(objectId, objectToSave);
                 oos.writeObject(currentSet);
                 oos.close();
-                oos.close();
+                fos.close();
             } catch (IOException e) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
             }
@@ -108,7 +108,7 @@ public class JavaPickle {
                 oos = new ObjectOutputStream(fos);
                 oos.writeObject(currentSet);
                 oos.close();
-                oos.close();
+                fos.close();
             } catch (IOException e) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
             }
