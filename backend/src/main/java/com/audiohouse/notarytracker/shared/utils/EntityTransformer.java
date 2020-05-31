@@ -47,8 +47,8 @@ public class EntityTransformer {
         signingEntityToGenerate.setAssignedNotaryName("None");
         signingEntityToGenerate.setClientPhoneNumber(postSigning.getClientPhoneNumber());
         signingEntityToGenerate.setClientSurname(postSigning.getClientSurname());
-        signingEntityToGenerate.setCreatedDate(DateHelper.getISODate());
-        signingEntityToGenerate.setLastUpdatedDate(DateHelper.getISODate());
+        signingEntityToGenerate.setCreatedDate(DateHelper.getDateNow());
+        signingEntityToGenerate.setLastUpdatedDate(DateHelper.getDateNow());
         signingEntityToGenerate.setEscrowCompanyName(postSigning.getEscrowCompanyName());
         signingEntityToGenerate.setEscrowOfficerName(postSigning.getEscrowOfficerName());
         signingEntityToGenerate.setSigningTimeDate(postSigning.getSigningTimeDate());
