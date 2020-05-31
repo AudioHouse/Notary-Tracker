@@ -34,6 +34,11 @@ public class SigningCore {
         return jPickle.getById(signingId, signingFileLocation);
     }
 
+    public List<SigningEntity> getAllSignings() {
+        logger.info("Getting all signings");
+        return jPickle.getAll(signingFileLocation);
+    }
+
     public List<SigningEntity> getSigningsListByNotaryId(String notaryId) {
         logger.info("Getting list of signings with notary id: {}", notaryId);
         List<SigningEntity> listToReturn = new ArrayList<>();

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/signing")
@@ -38,6 +40,14 @@ public class SigningController {
         InputValidator.validatePostSigning(postSigning);
         // create signing
         return new ResponseEntity<>(signingCore.createSigning(postSigning), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<List<SigningEntity>> getAllSignings(
+            @RequestHeader(value = "Authorization") String jwtToken) {
+        // authenticate
+        tokenCore.throwIfUnauthorized(jwtToken);
+        // get all signings
+        return new ResponseEntity<>(signingCore.getAllSignings(), HttpStatus.OK);
     }
 
 }
