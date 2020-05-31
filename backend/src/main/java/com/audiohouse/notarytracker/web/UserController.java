@@ -92,7 +92,11 @@ public class UserController {
     public ResponseEntity<List<SigningEntity>> getUserSignings(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable("userId") String userId) {
+        // authenticate
         tokenCore.throwIfUnauthorized(jwtToken);
+        // check if user exists
+        userCore.getUserById(userId);
+        // return the list of signings
         return new ResponseEntity<>(signingCore.getSigningsListByNotaryId(userId), HttpStatus.OK);
     }
 
