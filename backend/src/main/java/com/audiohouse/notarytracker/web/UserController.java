@@ -1,7 +1,9 @@
 package com.audiohouse.notarytracker.web;
 
+import com.audiohouse.notarytracker.core.SigningCore;
 import com.audiohouse.notarytracker.core.TokenCore;
 import com.audiohouse.notarytracker.core.UserCore;
+import com.audiohouse.notarytracker.shared.models.internal.SigningEntity;
 import com.audiohouse.notarytracker.shared.models.web.GetUser;
 import com.audiohouse.notarytracker.shared.models.web.PostUser;
 import com.audiohouse.notarytracker.shared.utils.EntityTransformer;
@@ -33,6 +35,9 @@ public class UserController {
 
     @Autowired
     TokenCore tokenCore;
+
+    @Autowired
+    SigningCore signingCore;
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
@@ -81,6 +86,14 @@ public class UserController {
         tokenCore.throwIfUnauthorized(jwtToken);
         userCore.deleteUserById(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(value = "/{userId}/signing")
+    public ResponseEntity<List<SigningEntity>> getUserSignings(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable("userId") String userId) {
+        tokenCore.throwIfUnauthorized(jwtToken);
+        return new ResponseEntity<>(signingCore.getSigningsListByNotaryId(userId), HttpStatus.OK);
     }
 
 }
