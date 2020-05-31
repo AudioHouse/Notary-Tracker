@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -42,12 +44,23 @@ public class SigningController {
         return new ResponseEntity<>(signingCore.createSigning(postSigning), HttpStatus.CREATED);
     }
 
+    @GetMapping
     public ResponseEntity<List<SigningEntity>> getAllSignings(
             @RequestHeader(value = "Authorization") String jwtToken) {
         // authenticate
         tokenCore.throwIfUnauthorized(jwtToken);
         // get all signings
         return new ResponseEntity<>(signingCore.getAllSignings(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{signingId}")
+    public ResponseEntity<SigningEntity> getSigningById(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable("signingId") String signingId) {
+        // authenticate
+        tokenCore.throwIfUnauthorized(jwtToken);
+        // get signing by id
+        return new ResponseEntity<>(signingCore.getSigningById(signingId), HttpStatus.OK);
     }
 
 }
